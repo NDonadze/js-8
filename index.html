@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fonts.css">
+    <title>Document</title>
+</head>
+<body> 
+    <h1>User Card List</h1>
+    
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+        xhr.send();
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                const userData = JSON.parse(xhr.response)
+                const div = document.createElement('div')
+                div.setAttribute("id", "cards_wrapper")
+                
+                for (let index = 0; index < userData.length; index++) {
+                    const element = userData[index];
+
+                    const divBox = document.createElement('div')
+                    divBox.setAttribute('id', 'card_box')
+                    const name = document.createElement('p')
+                    name.setAttribute('id', 'card_name')
+                    name.textContent = element.name;
+                    divBox.appendChild(name)
+
+                    const email = document.createElement('p')
+                    email.setAttribute('id', 'card_email')
+                    email.textContent = element.email;
+                    divBox.appendChild(email)
+
+                    const address = document.createElement('p')
+                    address.setAttribute('id', 'card_address')
+                    address.textContent = `${element.address.city}, ${element.address.street}, ${element.address.suite}.`;
+                    divBox.appendChild(address)
+
+                    div.appendChild(divBox)
+                    document.body.appendChild(div)
+                    console.log(userData)   
+                }
+            } else {
+                console.log('error')
+            }
+        }
+
+
+    </script>
+</body>
+</html>
